@@ -64,9 +64,10 @@ public class ApiRouter implements Router {
                 }
         );
         
-        
+        //ENDPOINT TEST
           get( "/test/", (req, res) -> {
                 response = apiService.getUsuarios(connection.getConnection());
+                
                   return response;
             
                 }

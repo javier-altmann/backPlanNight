@@ -19,9 +19,11 @@ public class ConnectionDB {
         try {
             
             connection = DriverManager.getConnection(
-                    " root",
-                    "",
-                    " jdbc:mysql://localhost/test");
+                    "jdbc:mysql://localhost/test",
+                    "root",
+                    "");
+            
+            //no leiste los parametros.
         } catch (SQLException e) {
             logger.error("Conexión error", e);
         }
