@@ -1,8 +1,9 @@
 package api;
 
+import DAO.MysqlDaoManager;
 import com.google.gson.Gson;
-import conf.ConnectionDB;
 import conf.Enviroment;
+import java.util.List;
 import models.*;
 
 
@@ -15,7 +16,7 @@ import static spark.Spark.*;
 public class ApiRouter implements Router {
 
     private final ApiService apiService;
-    private ConnectionDB connection;
+    private MysqlDaoManager connection;
 
     private final String apiContext = Enviroment.API_CONTEXT.getProperty();
     private final String appVersion = Enviroment.APP_VERSION.getProperty();
@@ -23,7 +24,7 @@ public class ApiRouter implements Router {
     private String response;
 
     @Inject
-    public ApiRouter(ApiService apiService, ConnectionDB connection, Gson jsonParser) {
+    public ApiRouter(ApiService apiService, MysqlDaoManager connection, Gson jsonParser) {
         this.apiService = apiService;
         this.connection = connection;
         this.jsonParser = jsonParser;
@@ -57,18 +58,11 @@ public class ApiRouter implements Router {
         get("/" + apiContext + "/version/", (req, res) -> appVersion);
 
 
-        // ----------------------- API /LOGIN
-        post("/" + apiContext + "/login/", (req, res) -> {
-                    response = apiService.authenticateUser(connection.getConnection(), jsonParser.fromJson(req.body(), UserDTO.class));
-                    return response;
-                }
-        );
-        
         //ENDPOINT TEST
           get( "/test/", (req, res) -> {
-                response = apiService.getUsuarios(connection.getConnection());
-                
-                  return response;
+           //     response = apiService.getUsuarios(connection.getConnection());
+                List<Usuario> user = connection.getUsuariosDAO().obtenerTodos();
+                  return user;
             
                 }
         );

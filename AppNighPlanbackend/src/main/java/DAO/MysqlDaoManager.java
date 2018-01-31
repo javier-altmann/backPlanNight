@@ -20,10 +20,12 @@ public class MysqlDaoManager implements DAOManager {
   private UsuarioDAO usuarios = null;
   private Statement st;
   private ResultSet rs;
-  
-  public MysqlDaoManager(String host,String username, String password, String database) throws SQLException{
-      conn = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, username, password);
+  //parametros de constructor String host,String username, String password, String database
+  public MysqlDaoManager() throws SQLException{
+     conn = DriverManager.getConnection("jdbc:mysql://localhost/nigthPlan","root","root");
   }
+
+   
 
     @Override
     public EstablecimientosDAO getEstablecimientosDAO() {
@@ -50,15 +52,14 @@ public class MysqlDaoManager implements DAOManager {
         
     }
     
+     public Connection getConn() {
+        return conn;
+    }
+
+    public void setConn(Connection conn) {
+        this.conn = conn;
+    }
     
-  public static void main(String[] args) throws SQLException,DAOException{
-    
-      MysqlDaoManager man = new MysqlDaoManager("localhost","root","root","nigthPlan");
-       
-      List<Usuario> user = man.getUsuariosDAO().obtenerTodos();
-      
-  }
-  
 }
 
     

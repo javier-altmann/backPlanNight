@@ -1,6 +1,6 @@
 package database;
 
-import conf.ConnectionDB;
+import DAO.MysqlDaoManager;
 import spark.Router;
 import spark.Spark;
 
@@ -8,10 +8,11 @@ import javax.inject.Inject;
 
 public class DatabaseRouter implements Router {
 
-    private ConnectionDB connection;
+    private MysqlDaoManager connection;
+   
 
     @Inject
-    public DatabaseRouter(ConnectionDB connection) {
+    public DatabaseRouter(MysqlDaoManager connection) {
         this.connection = connection;
     }
 
@@ -19,7 +20,8 @@ public class DatabaseRouter implements Router {
     public void routeServices() {
 
         Spark.get("/database/healthcheck", (req, res) ->
-                connection.getConnection().isClosed() ? "Sin conexión" : "Conx conexión"
+                
+                connection.getConn().isClosed() ? "Sin conexión" : "Conx conexión"
         );
 
 
