@@ -1,5 +1,6 @@
 package api;
 
+import DAO.DAOException;
 import DAO.MysqlDaoManager;
 import models.*;
 
@@ -13,28 +14,34 @@ public class ApiService {
 String response;
 PreparedStatement usuario;
 private MysqlDaoManager connection;  
+
+public ApiService() throws SQLException {
+        this.connection = new MysqlDaoManager();
+    }
+
 final String QUERYUSUARIO = "INSERT INTO usuarios (nombre,apellido,mail,password,imagen_perfil) VALUES(?,?,?,?,?)";
 
-  public String CrearUsuario(CreateUserDTO user) throws SQLException{
+    
+
+  public void CrearUsuario(CreateUserDTO user) throws SQLException, DAOException{
   try{
-  usuario = connection.getConn().prepareStatement(QUERYUSUARIO);
+        usuario = connection.getConn().prepareStatement(QUERYUSUARIO);
   
-  usuario.setString(1, user.getNombre());
-  usuario.setString(2, user.getApellido());
-  usuario.setString(3, user.getMail());
-  usuario.setString(4, user.getPassword());
-  usuario.setString(5, user.getImagen_perfil());
+        usuario.setString(1, user.getNombre());
+        usuario.setString(2, user.getApellido());
+        usuario.setString(3, user.getMail());
+        usuario.setString(4, user.getPassword());
+        usuario.setString(5, user.getImagen_perfil());
  
   
-  usuario.executeUpdate();
-  connection.getConn().commit();
-  }catch(Exception ex){
-      connection.getConn().rollback();
+        usuario.executeUpdate();
+  }catch(SQLException ex){
+      throw new DAOException ("Fallo al insertar datos");
   }finally{
       if(usuario != null){
           usuario.close();
     }
  }
-  return response;
+  
    }  
     }

@@ -22,7 +22,7 @@ public class MysqlDaoManager implements DAOManager {
   private ResultSet rs;
   //parametros de constructor String host,String username, String password, String database
   public MysqlDaoManager() throws SQLException{
-     conn = DriverManager.getConnection("jdbc:mysql://localhost/nigthPlan","root","");
+     conn = DriverManager.getConnection("jdbc:mysql://localhost/nigthPlan","root","root");
      conn.setAutoCommit(false);
   }
 

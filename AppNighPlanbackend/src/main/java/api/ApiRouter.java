@@ -9,8 +9,6 @@ import models.*;
 
 
 import javax.inject.Inject;
-import org.json.JSONObject;
-
 import spark.Router;
 
 import static spark.Spark.*;
@@ -24,6 +22,7 @@ public class ApiRouter implements Router {
     private final String appVersion = Enviroment.APP_VERSION.getProperty();
     private Gson jsonParser;
     private String response;
+    private String test;
 
     @Inject
     public ApiRouter(ApiService apiService, MysqlDaoManager connection) {
@@ -70,11 +69,20 @@ public class ApiRouter implements Router {
         );
           
            //ENDPOINT TEST
-          post( "/test/", (req, res) -> {
-              response = req.body();
-             
-             response = apiService.CrearUsuario(jsonParser.fromJson(req.body(), CreateUserDTO.class));
-             return response;
+          post( "/crear-usuarios/", (req, res) -> {
+            try{
+                response = req.body();
+                CreateUserDTO user = jsonParser.fromJson(response, CreateUserDTO.class);
+                 res.status(200); //Solicitud correcta
+                apiService.CrearUsuario(user);
+                 res.status(201); //Created
+               return "Se creo el usuario correctamente";
+            }catch(Exception exc){
+                res.status(400);
+                 return exc;
+                         
+            }
+           
            }
         );
 
