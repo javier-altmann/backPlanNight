@@ -61,14 +61,20 @@ public class ApiRouter implements Router {
 
 
         //ENDPOINT TEST
-          get( "/test/", (req, res) -> {
+          get( "/usuarios/", (req, res) -> {
              UserDTO usuario = new UserDTO();
              usuario.setUsuarios(connection.getUsuariosDAO().obtenerTodos());
-           
-           
             response = jsonParser.toJson(usuario) ;
-               
             return response;
+           }
+        );
+          
+           //ENDPOINT TEST
+          post( "/test/", (req, res) -> {
+              response = req.body();
+             
+             response = apiService.CrearUsuario(jsonParser.fromJson(req.body(), CreateUserDTO.class));
+             return response;
            }
         );
 

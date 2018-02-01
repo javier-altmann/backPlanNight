@@ -1,60 +1,40 @@
 package api;
 
+import DAO.MysqlDaoManager;
 import models.*;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ApiService {
+String response;
+PreparedStatement usuario;
+private MysqlDaoManager connection;  
+final String QUERYUSUARIO = "INSERT INTO usuarios (nombre,apellido,mail,password,imagen_perfil) VALUES(?,?,?,?,?)";
 
-    private String response;
-    private Statement st;
-    private ResultSet rs;
-    private String query;
-
-     public String getUsuarios(Connection connection) {
-        query = "SELECT * FROM usuario";
-        try {
-
-            st = connection.createStatement();
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-                response = rs.getString(1);
-            }
-            rs.close();
-            st.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return response;
-
+  public String CrearUsuario(CreateUserDTO user) throws SQLException{
+  try{
+  usuario = connection.getConn().prepareStatement(QUERYUSUARIO);
+  
+  usuario.setString(1, user.getNombre());
+  usuario.setString(2, user.getApellido());
+  usuario.setString(3, user.getMail());
+  usuario.setString(4, user.getPassword());
+  usuario.setString(5, user.getImagen_perfil());
+ 
+  
+  usuario.executeUpdate();
+  connection.getConn().commit();
+  }catch(Exception ex){
+      connection.getConn().rollback();
+  }finally{
+      if(usuario != null){
+          usuario.close();
     }
-
-   /* public String authenticateUser(Connection connection, UserDTO user) {
-       // query = "select row_to_json(\"user\") from \"user\" " +
-                "where username = '" + user.getUsername() + "' and password = '" + user.getPassword() + "'";
-        try {
-
-            st = connection.createStatement();
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-                response = rs.getString(1);
-            }
-            rs.close();
-            st.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return response;
-
+ }
+  return response;
+   }  
     }
-*/
-
-
-}
