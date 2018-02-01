@@ -34,8 +34,8 @@ public class ApiService {
 
     }
 
-    public String authenticateUser(Connection connection, UserDTO user) {
-        query = "select row_to_json(\"user\") from \"user\" " +
+   /* public String authenticateUser(Connection connection, UserDTO user) {
+       // query = "select row_to_json(\"user\") from \"user\" " +
                 "where username = '" + user.getUsername() + "' and password = '" + user.getPassword() + "'";
         try {
 
@@ -54,6 +54,7 @@ public class ApiService {
         return response;
 
     }
+*/
 
 
 }

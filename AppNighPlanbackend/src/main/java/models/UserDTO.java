@@ -1,23 +1,18 @@
 package models;
 
+import java.util.List;
+
 public class UserDTO {
 
-    private String username;
-    private String password;
+ private List<Usuario> usuarios ;
 
-    public String getUsername() {
-        return username;
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+ 
+ 
 }

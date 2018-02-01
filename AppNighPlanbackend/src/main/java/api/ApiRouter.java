@@ -2,12 +2,14 @@ package api;
 
 import DAO.MysqlDaoManager;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import conf.Enviroment;
 import java.util.List;
 import models.*;
 
 
 import javax.inject.Inject;
+import org.json.JSONObject;
 
 import spark.Router;
 
@@ -24,10 +26,10 @@ public class ApiRouter implements Router {
     private String response;
 
     @Inject
-    public ApiRouter(ApiService apiService, MysqlDaoManager connection, Gson jsonParser) {
+    public ApiRouter(ApiService apiService, MysqlDaoManager connection) {
         this.apiService = apiService;
         this.connection = connection;
-        this.jsonParser = jsonParser;
+        this.jsonParser = new Gson();
     }
 
     @Override
@@ -60,11 +62,14 @@ public class ApiRouter implements Router {
 
         //ENDPOINT TEST
           get( "/test/", (req, res) -> {
-           //     response = apiService.getUsuarios(connection.getConnection());
-                List<Usuario> user = connection.getUsuariosDAO().obtenerTodos();
-                  return user;
-            
-                }
+             UserDTO usuario = new UserDTO();
+             usuario.setUsuarios(connection.getUsuariosDAO().obtenerTodos());
+           
+           
+            response = jsonParser.toJson(usuario) ;
+               
+            return response;
+           }
         );
 
     }
