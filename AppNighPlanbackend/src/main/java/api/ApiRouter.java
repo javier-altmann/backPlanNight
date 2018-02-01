@@ -60,6 +60,14 @@ public class ApiRouter implements Router {
 
 
         //ENDPOINT TEST
+         get( "/test/:id", (req, res) -> {
+          int id = Integer.parseInt(req.params(":id"));
+          response = jsonParser.toJson(connection.getEstablecimientosDAO().getEstablecimientosDestacados(id));
+           
+            return response;
+           }
+        );
+         
           get( "/usuarios/", (req, res) -> {
              UserDTO usuario = new UserDTO();
              usuario.setUsuarios(connection.getUsuariosDAO().obtenerTodos());

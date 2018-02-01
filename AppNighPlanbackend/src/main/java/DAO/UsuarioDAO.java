@@ -83,7 +83,7 @@ public class UsuarioDAO implements BaseDAO{
          return user;
     }
     @Override
-    public Object obtener(Long id) {
+    public Object obtener(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
