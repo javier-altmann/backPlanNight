@@ -31,7 +31,7 @@ public class MysqlDaoManager implements DAOManager {
     @Override
     public EstablecimientosDAO getEstablecimientosDAO() {
         if (establecimientos == null){
-            encuesta = new EncuestaDAO(conn);
+            establecimientos = new EstablecimientosDAO(conn);
         }
         return establecimientos;
     }

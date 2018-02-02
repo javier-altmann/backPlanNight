@@ -19,7 +19,7 @@ import models.Usuario;
  * @Javier Altmann
  */
 public class EstablecimientosDAO implements BaseDAO{
-    final String GETESTABLECIMIENTOS = "SELECT * FROM establecimientos WHERE = ?";
+    final String GETESTABLECIMIENTOS = "SELECT * FROM establecimientos WHERE id_establecimiento = ?";
     private Connection conn;
     private PreparedStatement stat = null;
     private ResultSet rs = null;
@@ -57,6 +57,7 @@ public class EstablecimientosDAO implements BaseDAO{
        List<Establecimientos> establecimientos = new ArrayList<>();
         try{
             stat = conn.prepareStatement(GETESTABLECIMIENTOS);
+            stat.setInt(1, id);
             rs = stat.executeQuery();
             
             while(rs.next()){
@@ -103,8 +104,6 @@ public class EstablecimientosDAO implements BaseDAO{
         Establecimientos establecimiento = new Establecimientos(id_establecimiento,nombre, direccion, imagen, destacado);
         return establecimiento;
     
-         
-
     }
     
 }

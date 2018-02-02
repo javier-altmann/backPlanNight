@@ -60,9 +60,19 @@ public class ApiRouter implements Router {
 
 
           get( "/usuarios/", (req, res) -> {
-             UserDTO usuario = new UserDTO();
-             usuario.setUsuarios(connection.getUsuariosDAO().obtenerTodos());
-            response = jsonParser.toJson(usuario) ;
+          try{
+           UserDTO usuario = new UserDTO();
+           usuario.setUsuarios(connection.getUsuariosDAO().obtenerTodos());
+           response = jsonParser.toJson(usuario) ;
+           res.status(200);
+           if (usuario.getUsuarios().isEmpty()){
+              res.status(204); // No hay datos que devolver
+            }
+
+            }catch(Exception ex){
+                 res.status(500);
+              return ex;
+            }
             return response;
            }
         );

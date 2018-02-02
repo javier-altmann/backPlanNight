@@ -1,6 +1,7 @@
 
 package api.establecimientos;
 
+import DAO.DAOException;
 import DAO.MysqlDaoManager;
 import api.ApiService;
 import com.google.gson.Gson;
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 import models.CreateUserDTO;
 import models.Establecimientos;
 import models.UserDTO;
+import models.Usuario;
 import spark.Router;
 import static spark.Spark.before;
 import static spark.Spark.get;
@@ -65,8 +67,19 @@ public class EstablecimientosRouter implements Router{
         //ENDPOINT TEST
          get( "/test/:id", (req, res) -> {
           int id = Integer.parseInt(req.params(":id"));
-          response = jsonParser.toJson(connection.getEstablecimientosDAO().getEstablecimientosDestacados(id));
-           
+          
+          try{
+          List<Establecimientos> establecimientos = connection.getEstablecimientosDAO().getEstablecimientosDestacados(id);
+          response = jsonParser.toJson(establecimientos);
+          res.status(200);
+          if (establecimientos.isEmpty()){
+              res.status(204);
+          }
+          
+          }catch(Exception ex){
+              res.status(500);
+              return ex;
+          }
             return response;
            }
         );
