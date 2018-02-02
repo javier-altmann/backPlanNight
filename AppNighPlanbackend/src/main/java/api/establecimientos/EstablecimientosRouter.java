@@ -10,6 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 import models.CreateUserDTO;
 import models.Establecimientos;
+import models.EstablecimientosDTO;
 import models.UserDTO;
 import models.Usuario;
 import spark.Router;
@@ -69,10 +70,12 @@ public class EstablecimientosRouter implements Router{
           int id = Integer.parseInt(req.params(":id"));
           
           try{
-          List<Establecimientos> establecimientos = connection.getEstablecimientosDAO().getEstablecimientosDestacados(id);
-          response = jsonParser.toJson(establecimientos);
+          EstablecimientosDTO establecimiento = new EstablecimientosDTO();
+          establecimiento.setEstablecimientos(connection.getEstablecimientosDAO().getEstablecimientosDestacados(id));
+
+          response = jsonParser.toJson(establecimiento);
           res.status(200);
-          if (establecimientos.isEmpty()){
+          if (establecimiento.getEstablecimientos().isEmpty()){
               res.status(204);
           }
           
