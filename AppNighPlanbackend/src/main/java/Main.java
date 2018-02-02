@@ -1,6 +1,7 @@
 
 import api.ApiModule;
 import api.ApiRouter;
+import api.establecimientos.EstablecimientosModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -23,6 +24,7 @@ public final class Main extends AbstractModule {
         Injector injector = Guice.createInjector(
                 
                 new ApiModule(),
+                new EstablecimientosModule(),
                 new DatabaseModule());
 
         Spark.port(getHerokuAssignedPort());
