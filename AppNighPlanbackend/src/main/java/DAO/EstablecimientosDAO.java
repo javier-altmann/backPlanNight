@@ -19,7 +19,7 @@ import models.Usuario;
  * @Javier Altmann
  */
 public class EstablecimientosDAO implements BaseDAO{
-    final String GETESTABLECIMIENTOS = "SELECT * FROM establecimientos WHERE id_establecimiento = ?";
+    final String GETESTABLECIMIENTOS = "SELECT * FROM establecimientos WHERE destacado = ?";
     private Connection conn;
     private PreparedStatement stat = null;
     private ResultSet rs = null;
@@ -53,11 +53,11 @@ public class EstablecimientosDAO implements BaseDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List<Establecimientos> getEstablecimientosDestacados(int id) throws DAOException{
+    public List<Establecimientos> getEstablecimientosDestacados() throws DAOException{
        List<Establecimientos> establecimientos = new ArrayList<>();
         try{
             stat = conn.prepareStatement(GETESTABLECIMIENTOS);
-            stat.setInt(1, id);
+            stat.setBoolean(1, true);
             rs = stat.executeQuery();
             
             while(rs.next()){

@@ -66,12 +66,12 @@ public class EstablecimientosRouter implements Router{
        
 
         //ENDPOINT TEST
-         get( "/test/:id", (req, res) -> {
-          int id = Integer.parseInt(req.params(":id"));
+         get( "/test/", (req, res) -> {
+         
           
           try{
           EstablecimientosDTO establecimiento = new EstablecimientosDTO();
-          establecimiento.setEstablecimientos(connection.getEstablecimientosDAO().getEstablecimientosDestacados(id));
+          establecimiento.setEstablecimientos(connection.getEstablecimientosDAO().getEstablecimientosDestacados());
 
           response = jsonParser.toJson(establecimiento);
           res.status(200);
