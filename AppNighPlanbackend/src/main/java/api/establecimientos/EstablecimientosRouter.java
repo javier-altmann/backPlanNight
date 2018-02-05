@@ -1,23 +1,16 @@
 
 package api.establecimientos;
 
-import DAO.DAOException;
 import DAO.MysqlDaoManager;
-import api.ApiService;
 import com.google.gson.Gson;
 import conf.Enviroment;
-import java.util.List;
 import javax.inject.Inject;
-import models.CreateUserDTO;
-import models.Establecimientos;
 import models.EstablecimientosDTO;
-import models.UserDTO;
-import models.Usuario;
 import spark.Router;
 import static spark.Spark.before;
 import static spark.Spark.get;
 import static spark.Spark.options;
-import static spark.Spark.post;
+
 
 /**
  *
@@ -63,12 +56,8 @@ public class EstablecimientosRouter implements Router{
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
-       
-
-        //ENDPOINT TEST
          get( "/test/", (req, res) -> {
          
-          
           try{
           EstablecimientosDTO establecimiento = new EstablecimientosDTO();
           establecimiento.setEstablecimientos(connection.getEstablecimientosDAO().getEstablecimientosDestacados());

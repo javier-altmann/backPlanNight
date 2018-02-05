@@ -5,8 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
-import models.Usuario;
+
 
 /**
  *
@@ -20,9 +19,10 @@ public class MysqlDaoManager implements DAOManager {
   private UsuarioDAO usuarios = null;
   private Statement st;
   private ResultSet rs;
+  
   //parametros de constructor String host,String username, String password, String database
   public MysqlDaoManager() throws SQLException{
-     conn = DriverManager.getConnection("jdbc:mysql://localhost/nigthPlan","root","root");
+     conn = DriverManager.getConnection("jdbc:mysql://localhost/nigthPlan","root","");
      conn.setAutoCommit(false);
   }
 

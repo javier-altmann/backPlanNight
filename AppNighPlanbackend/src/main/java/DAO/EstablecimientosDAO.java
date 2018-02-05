@@ -19,7 +19,14 @@ import models.Usuario;
  * @Javier Altmann
  */
 public class EstablecimientosDAO implements BaseDAO{
-    final String GETESTABLECIMIENTOS = "SELECT * FROM establecimientos WHERE destacado = ?";
+    final String GETESTABLECIMIENTOS = "SELECT establecimientos.id_establecimiento ,establecimientos.nombre, establecimientos.imagen, establecimientos.direccion, \n" +
+"barrios.barrio, establecimientos.destacado\n" +
+"FROM establecimientos\n" +
+"INNER JOIN establecimiento_barrios\n" +
+"ON establecimientos.id_establecimiento = establecimiento_barrios.id_establecimiento\n" +
+"INNER JOIN barrios \n" +
+"ON barrios.id_barrio = establecimiento_barrios.id_barrio\n" +
+"WHERE establecimientos.destacado = ?";
     private Connection conn;
     private PreparedStatement stat = null;
     private ResultSet rs = null;
@@ -97,11 +104,12 @@ public class EstablecimientosDAO implements BaseDAO{
     private Establecimientos parseObject(ResultSet rs) throws SQLException{
         int id_establecimiento = rs.getInt("id_establecimiento");
         String nombre = rs.getString("nombre");
-        String direccion = rs.getString("direccion");
         String imagen = rs.getString("imagen");
+        String direccion = rs.getString("direccion");
+        String barrio = rs.getString("barrio");
         boolean destacado = rs.getBoolean("destacado");
      
-        Establecimientos establecimiento = new Establecimientos(id_establecimiento,nombre, direccion, imagen, destacado);
+        Establecimientos establecimiento = new Establecimientos(id_establecimiento,nombre,imagen,direccion,barrio,destacado);
         return establecimiento;
     
     }
