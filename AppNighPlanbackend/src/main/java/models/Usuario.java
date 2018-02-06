@@ -2,9 +2,10 @@ package models;
 
 /**
  *
- * @author Javier
+ * @Javier Altmann
  */
 public class Usuario {
+    private int id_usuario;
     private String nombre;
     private String apellido;
     private String mail;
@@ -17,6 +18,23 @@ public class Usuario {
         this.mail = mail;
         this.password = password;
         this.imagen_perfil = imagen_perfil;
+    }
+    
+    public Usuario(int id_usuario, String nombre, String apellido, String mail, String imagen_perfil) {
+        this.id_usuario = id_usuario;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.mail = mail;
+        this.password = password;
+        this.imagen_perfil = imagen_perfil;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
     
     

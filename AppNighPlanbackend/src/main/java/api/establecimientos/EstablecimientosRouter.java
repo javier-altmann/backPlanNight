@@ -67,7 +67,7 @@ public class EstablecimientosRouter implements Router{
           if (establecimiento.getEstablecimientos().isEmpty()){
               res.status(204);
           }
-          
+         
           }catch(Exception ex){
               res.status(500);
               return ex;

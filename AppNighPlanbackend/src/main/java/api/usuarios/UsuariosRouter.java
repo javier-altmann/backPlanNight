@@ -4,6 +4,7 @@ import DAO.MysqlDaoManager;
 import com.google.gson.Gson;
 import conf.Enviroment;
 import javax.inject.Inject;
+import models.Usuario;
 import spark.Router;
 import static spark.Spark.before;
 import static spark.Spark.get;
@@ -15,8 +16,7 @@ import static spark.Spark.post;
  * @Javier Altmann
  */
 public class UsuariosRouter implements Router{
-
-   
+        
         private final UsuariosService usuariosService;
         private MysqlDaoManager connection;
 
@@ -56,8 +56,12 @@ public class UsuariosRouter implements Router{
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
          post( "/login/", (req, res) -> {
-         
-         return null;
+             response = req.body();
+             Usuario user = jsonParser.fromJson(response, Usuario.class);
+             res.status(200); //Solicitud correcta
+            String respuesta = jsonParser.toJson(connection.getUsuariosDAO().autenticacionUsuario(user));
+                    
+            return respuesta;
            }
         );
          
