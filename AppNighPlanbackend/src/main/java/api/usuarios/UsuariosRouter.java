@@ -15,15 +15,15 @@ import static spark.Spark.post;
  *
  * @Javier Altmann
  */
-public class UsuariosRouter implements Router{
-        
-        private final UsuariosService usuariosService;
-        private MysqlDaoManager connection;
+public class UsuariosRouter implements Router {
 
-        private final String apiContext = Enviroment.API_CONTEXT.getProperty();
-        private final String appVersion = Enviroment.APP_VERSION.getProperty();
-        private Gson jsonParser;
-        private String response;
+    private final UsuariosService usuariosService;
+    private MysqlDaoManager connection;
+
+    private final String apiContext = Enviroment.API_CONTEXT.getProperty();
+    private final String appVersion = Enviroment.APP_VERSION.getProperty();
+    private Gson jsonParser;
+    private String response;
 
     @Inject
     public UsuariosRouter(UsuariosService usuariosService, MysqlDaoManager connection) {
@@ -31,6 +31,7 @@ public class UsuariosRouter implements Router{
         this.connection = connection;
         this.jsonParser = new Gson();
     }
+
     @Override
     public void routeServices() {
         options("/*",
@@ -55,16 +56,23 @@ public class UsuariosRouter implements Router{
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
-         post( "/login/", (req, res) -> {
-             response = req.body();
-             Usuario user = jsonParser.fromJson(response, Usuario.class);
-             res.status(200); //Solicitud correcta
-            String respuesta = jsonParser.toJson(connection.getUsuariosDAO().autenticacionUsuario(user));
-                    
-            return respuesta;
-           }
+        post("/login/", (req, res) -> {
+            try {
+                response = req.body();
+                Usuario user = jsonParser.fromJson(response, Usuario.class);
+                res.status(200); //Solicitud correcta
+
+                String respuesta = jsonParser.toJson(connection.getUsuariosDAO().autenticacionUsuario(user));
+                res.status(201);
+                return respuesta;
+            } catch (Exception exc) {
+                res.status(400);
+                return exc;
+
+            }
+        }
         );
-         
+
         
           
          
