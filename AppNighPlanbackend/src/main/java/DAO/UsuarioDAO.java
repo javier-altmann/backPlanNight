@@ -16,7 +16,13 @@ public class UsuarioDAO implements BaseDAO {
 
     final String GETALL = "SELECT * FROM usuarios";
     private Connection conn;
-    final String AUTENTICACION = "SELECT usuarios.id_usuario, usuarios.nombre, usuarios.apellido, usuarios.mail, usuarios.imagen_perfil  FROM usuarios WHERE mail = ? AND password = ?";
+    final String AUTENTICACION = "SELECT  usuarios.id_usuario, usuarios.nombre,usuarios.apellido, usuarios.mail, usuarios.imagen_perfil, roles.id_rol\n" +
+"FROM usuarios \n" +
+"INNER JOIN roles_usuarios \n" +
+"ON usuarios.id_usuario = roles_usuarios.id_usuario\n" +
+"INNER JOIN roles \n" +
+"ON roles.id_rol = roles_usuarios.id_rol\n" +
+"WHERE roles.id_rol = 2 AND usuarios.mail = ? AND usuarios.password = ? ";
 
     public UsuarioDAO(Connection conn) {
         this.conn = conn;

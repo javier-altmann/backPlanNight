@@ -61,6 +61,12 @@ public class UsuariosRouter implements Router {
                 response = req.body();
                 Usuario user = jsonParser.fromJson(response, Usuario.class);
                 res.status(200); //Solicitud correcta
+                
+                //Cuando la query no encuentra por usuario o contraseña devuelve id_usuario = 0
+                if(user.getId_usuario() == 0){
+                    res.status(401);
+                    return "No hay resultados";
+                }
 
                 String respuesta = jsonParser.toJson(connection.getUsuariosDAO().autenticacionUsuario(user));
                 res.status(201);
