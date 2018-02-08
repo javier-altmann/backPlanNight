@@ -6,46 +6,42 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.CreateUserDTO;
 import models.Usuario;
 
 /**
  *
  * @Javier Altmann
  */
-public class UsuarioDAO implements BaseDAO {
+public abstract class UsuarioDAO implements BaseDAO<CreateUserDTO> {
 
     final String GETALL = "SELECT * FROM usuarios";
     private Connection conn;
-    final String AUTENTICACION = "SELECT  usuarios.id_usuario, usuarios.nombre,usuarios.apellido, usuarios.mail, usuarios.imagen_perfil, roles.id_rol\n" +
-"FROM usuarios \n" +
-"INNER JOIN roles_usuarios \n" +
-"ON usuarios.id_usuario = roles_usuarios.id_usuario\n" +
-"INNER JOIN roles \n" +
-"ON roles.id_rol = roles_usuarios.id_rol\n" +
-"WHERE roles.id_rol = 2 AND usuarios.mail = ? AND usuarios.password = ? ";
+    final String AUTENTICACION = "SELECT  usuarios.id_usuario, usuarios.nombre,usuarios.apellido, usuarios.mail, usuarios.imagen_perfil, roles.id_rol\n"
+            + "FROM usuarios \n"
+            + "INNER JOIN roles_usuarios \n"
+            + "ON usuarios.id_usuario = roles_usuarios.id_usuario\n"
+            + "INNER JOIN roles \n"
+            + "ON roles.id_rol = roles_usuarios.id_rol\n"
+            + "WHERE roles.id_rol = 2 AND usuarios.mail = ? AND usuarios.password = ? ";
+
+    final String CREAR_USUARIO = "INSERT INTO usuarios ("
+            + " nombre,"
+            + " apellido,"
+            + " mail,"
+            + " password,"
+            + " imagen_perfil ) VALUES ("
+            + " ?, ?, ?, ?, ?)";
+
+    final String CREAR_ROL_USUARIO = "INSERT INTO usuarios ("
+            + " id_rol,"
+            + " id_usuario) VALUES ("
+            + " 2, ?)";
 
     public UsuarioDAO(Connection conn) {
         this.conn = conn;
-    }
-
-    @Override
-    public void crear(Object t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void insertar(Object t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void actualizar(Object t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void eliminar(Object t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -81,11 +77,6 @@ public class UsuarioDAO implements BaseDAO {
 
         }
         return user;
-    }
-
-    @Override
-    public Object obtener(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Usuario autenticacionUsuario(Usuario user) throws DAOException, SQLException {
@@ -146,4 +137,37 @@ public class UsuarioDAO implements BaseDAO {
         return user;
     }
 
-}
+    @Override
+    public void crear(CreateUserDTO user) throws DAOException {
+        PreparedStatement ps = null;
+        try {
+            ps  = conn.prepareStatement(CREAR_USUARIO);
+            
+            ps.setString(1, user.getNombre());
+            ps.setString(2, user.getApellido());
+            ps.setString(3, user.getMail());
+            ps.setString(4, user.getPassword());
+            ps.setString(5, user.getImagen_perfil());
+            
+            ps.executeUpdate();
+            conn.commit();
+        } catch (SQLException ex) {
+            
+            conn.rollback();
+            
+        }finally{
+             
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch(SQLException ex) {
+
+                    }
+                }
+            }
+        }
+        
+    
+    }
+
+

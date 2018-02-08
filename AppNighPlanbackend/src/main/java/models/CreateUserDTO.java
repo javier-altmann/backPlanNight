@@ -10,6 +10,7 @@ public class CreateUserDTO {
     private String mail;
     private String password;
     private String imagen_perfil;
+    private int id_usuario;
     
     public CreateUserDTO(String nombre, String apellido, String mail,String password, String imagen_perfil) {
         this.nombre = nombre;
