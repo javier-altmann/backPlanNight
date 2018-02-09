@@ -4,6 +4,7 @@ import DAO.MysqlDaoManager;
 import com.google.gson.Gson;
 import conf.Enviroment;
 import javax.inject.Inject;
+import models.CreateUserDTO;
 import models.Usuario;
 import spark.Router;
 import static spark.Spark.before;
@@ -59,7 +60,7 @@ public class UsuariosRouter implements Router {
         post("/login/", (req, res) -> {
             try {
                 response = req.body();
-                Usuario user = jsonParser.fromJson(response, Usuario.class);
+                CreateUserDTO user = jsonParser.fromJson(response, CreateUserDTO.class);
                 res.status(200); //Solicitud correcta
                 
                 //Cuando la query no encuentra por usuario o contrase�a devuelve id_usuario = 0

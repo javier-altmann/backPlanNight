@@ -33,8 +33,8 @@ private ResultSet rs = null;
        this.conn = conn;
    }
    
-   
-    public List<Establecimientos> getEstablecimientosDestacados() throws DAOException, SQLException{
+   @Override
+    public List<Establecimientos> getEstablecimientosDestacados() throws DAOException{
        List<Establecimientos> establecimientos = new ArrayList<>();
         try{
             stat = conn.prepareStatement(GETESTABLECIMIENTOS);
