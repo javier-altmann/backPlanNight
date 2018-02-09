@@ -13,10 +13,10 @@ import java.sql.Statement;
  */
 public class MysqlDaoManager implements DAOManager {
   private Connection conn;
-  private EncuestaDAO encuesta = null;
-  private EstablecimientosDAO establecimientos = null;
-  private GruposDAO grupos = null;
-  private UsuarioDAO usuarios = null;
+  private EncuestaMysqlDAO encuesta = null;
+  private EstablecimientoMysqlDAO establecimientos = null;
+  private GruposMysqlDAO grupos = null;
+  private UsuarioMysqlDAO usuarios = null;
   private Statement st;
   private ResultSet rs;
   
@@ -31,7 +31,7 @@ public class MysqlDaoManager implements DAOManager {
     @Override
     public EstablecimientosDAO getEstablecimientosDAO() {
         if (establecimientos == null){
-            establecimientos = new EstablecimientosDAO(conn);
+            establecimientos = new EstablecimientosMysqlDAO(conn);
         }
         return establecimientos;
     }
@@ -39,7 +39,7 @@ public class MysqlDaoManager implements DAOManager {
     @Override
     public GruposDAO getGruposDAO() {
         if (grupos == null){
-            grupos = new GruposDAO(conn);
+            grupos = new GruposMysqlDAO(conn);
         }
         return grupos;
     }
@@ -47,7 +47,7 @@ public class MysqlDaoManager implements DAOManager {
     @Override
     public UsuarioDAO getUsuariosDAO() {
         if (usuarios == null){
-            usuarios = new UsuarioDAO(conn);
+            usuarios = new UsuarioMysqlDAO(conn);
         }
         return usuarios;
         

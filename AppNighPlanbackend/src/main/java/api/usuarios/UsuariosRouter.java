@@ -68,7 +68,7 @@ public class UsuariosRouter implements Router {
                     return "No hay resultados";
                 }
 
-                String respuesta = jsonParser.toJson(connection.getUsuariosDAO().autenticacionUsuario(user));
+                String respuesta = jsonParser.toJson(connection.getUsuariosMysqlDAO().autenticacionUsuario(user));
                 res.status(201);
                 return respuesta;
             } catch (Exception exc) {

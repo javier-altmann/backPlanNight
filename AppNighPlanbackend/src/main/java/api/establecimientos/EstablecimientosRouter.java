@@ -60,7 +60,7 @@ public class EstablecimientosRouter implements Router{
          
           try{
           EstablecimientosDTO establecimiento = new EstablecimientosDTO();
-          establecimiento.setEstablecimientos(connection.getEstablecimientosDAO().getEstablecimientosDestacados());
+          establecimiento.setEstablecimientos(connection.getEstablecimientosMysqlDAO().getEstablecimientosDestacados());
 
           response = jsonParser.toJson(establecimiento);
           res.status(200);
