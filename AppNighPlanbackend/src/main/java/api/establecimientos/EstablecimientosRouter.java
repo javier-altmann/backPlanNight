@@ -60,7 +60,9 @@ public class EstablecimientosRouter implements Router{
          
           try{
           EstablecimientosDTO establecimiento = new EstablecimientosDTO();
-          establecimiento.setEstablecimientos(connection.getEstablecimientosMysqlDAO().getEstablecimientosDestacados());
+      
+//TENGO QUE AGREGAR UN MÉTODO A LA INTERFAZ llamado getEstablecimientosDestacados
+//   establecimiento.setEstablecimientos(connection.getEstablecimientosDAO().getEstablecimientosDestacados());
 
           response = jsonParser.toJson(establecimiento);
           res.status(200);

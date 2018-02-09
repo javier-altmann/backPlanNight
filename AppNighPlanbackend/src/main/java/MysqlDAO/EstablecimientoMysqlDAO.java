@@ -1,5 +1,15 @@
 package MysqlDAO;
 
+import DAO.DAOException;
+import DAO.EstablecimientosDAO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import models.Establecimientos;
+
 /**
  *
  * @author JavierAltmann
@@ -19,12 +29,12 @@ private Connection conn;
 private PreparedStatement stat = null;
 private ResultSet rs = null;
     
-   public EstablecimientosMysqlDAO(Connection conn){
+   public EstablecimientoMysqlDAO(Connection conn){
        this.conn = conn;
    }
    
    
-    public List<Establecimientos> getEstablecimientosDestacados() throws DAOException{
+    public List<Establecimientos> getEstablecimientosDestacados() throws DAOException, SQLException{
        List<Establecimientos> establecimientos = new ArrayList<>();
         try{
             stat = conn.prepareStatement(GETESTABLECIMIENTOS);
@@ -70,6 +80,36 @@ private ResultSet rs = null;
         Establecimientos establecimiento = new Establecimientos(id_establecimiento,nombre,imagen,direccion,barrio,destacado);
         return establecimiento;
     
+    }
+
+    @Override
+    public void crear(Establecimientos t) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void insertar(Establecimientos t) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void actualizar(Establecimientos t) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void eliminar(Establecimientos t) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Establecimientos> obtenerTodos() throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Establecimientos obtener(int id) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
 }

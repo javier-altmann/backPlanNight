@@ -9,4 +9,6 @@ import models.Establecimientos;
  */
 public interface EstablecimientosDAO extends BaseDAO <Establecimientos>{
     
+    
+    
 }

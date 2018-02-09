@@ -8,12 +8,5 @@ import java.sql.Connection;
  */
 public interface EncuestaDAO <T> {
    
-    /* CODIGO DE ANTES
-    private Connection conn;
-    
-   public EncuestaDAO(Connection conn){
-       this.conn = conn;
-   }
-*/
     
 }

@@ -4,13 +4,13 @@ import java.util.List;
 
 public class UserDTO {
 
- private List<Usuario> usuarios ;
+ private List<CreateUserDTO> usuarios ;
 
-    public List<Usuario> getUsuarios() {
+    public List<CreateUserDTO> getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
+    public void setUsuarios(List<CreateUserDTO> usuarios) {
         this.usuarios = usuarios;
     }
  

@@ -2,7 +2,7 @@ package models;
 
 /**
  *
- * @author Javi
+ * @Javier Altmann
  */
 public class CreateUserDTO {
     private String nombre;
@@ -12,6 +12,8 @@ public class CreateUserDTO {
     private String imagen_perfil;
     private int id_usuario;
     
+    public CreateUserDTO(){}
+    
     public CreateUserDTO(String nombre, String apellido, String mail,String password, String imagen_perfil) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -20,6 +22,15 @@ public class CreateUserDTO {
         this.imagen_perfil = imagen_perfil;
         
     }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+    
 
     public String getNombre() {
         return nombre;

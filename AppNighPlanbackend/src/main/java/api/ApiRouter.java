@@ -62,7 +62,7 @@ public class ApiRouter implements Router {
           get( "/usuarios/", (req, res) -> {
           try{
            UserDTO usuario = new UserDTO();
-           usuario.setUsuarios(connection.getUsuariosMysqlDAO().obtenerTodos());
+           usuario.setUsuarios(connection.getUsuariosDAO().obtenerTodos());
            response = jsonParser.toJson(usuario) ;
            res.status(200);
            if (usuario.getUsuarios().isEmpty()){
