@@ -19,7 +19,7 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
     public UsuarioMysqlDAO(Connection conn) {
         this.conn = conn;
     }
-    
+
     final String GETALL = "SELECT * FROM usuarios";
     private Connection conn;
     final String AUTENTICACION = "SELECT  usuarios.id_usuario, usuarios.nombre,usuarios.apellido, usuarios.mail, usuarios.imagen_perfil, roles.id_rol\n"
@@ -45,32 +45,31 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
 
     @Override
     public void crear(CreateUserDTO user) throws DAOException {
-         PreparedStatement ps = null;
+        PreparedStatement ps = null;
         try {
-            ps  = conn.prepareStatement(CREAR_USUARIO);
-            
+            ps = conn.prepareStatement(CREAR_USUARIO);
+
             ps.setString(1, user.getNombre());
             ps.setString(2, user.getApellido());
             ps.setString(3, user.getMail());
             ps.setString(4, user.getPassword());
             ps.setString(5, user.getImagen_perfil());
-            
+
             ps.executeUpdate();
             conn.commit();
         } catch (SQLException ex) {
-            
-     //       conn.rollback();
-            
-        }finally{
-             
-                if (ps != null) {
-                    try {
-                        ps.close();
-                    } catch(SQLException ex) {
 
-                    }
+            //       conn.rollback();
+        } finally {
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+
                 }
             }
+        }
     }
 
     @Override
@@ -90,7 +89,7 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
 
     @Override
     public List<CreateUserDTO> obtenerTodos() throws DAOException {
-         PreparedStatement stat = null;
+        PreparedStatement stat = null;
         ResultSet rs = null;
         List<CreateUserDTO> user = new ArrayList<>();
         try {
@@ -104,12 +103,12 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
             throw new DAOException("Error en la conexion a la base de datos", ex);
         } finally {
             if (rs != null) {
-               try {
-                        rs.close();
-                    } catch (SQLException ex) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
 
-                    }
-                    
+                }
+
                 if (stat != null) {
                     try {
                         stat.close();
@@ -127,46 +126,8 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
     public CreateUserDTO obtener(int id) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    /*
-    public CreateUserDTO autenticacionUsuario(CreateUserDTO user) throws DAOException, SQLException {
-        PreparedStatement stat = null;
-        ResultSet rs = null;
 
-        try {
-            stat = conn.prepareStatement(AUTENTICACION);
-            stat.setString(1, user.getMail());
-            stat.setString(2, user.getPassword());
-            rs = stat.executeQuery();
-
-            while (rs.next()) {
-
-                parseUserLoginObject(rs, user);
-            }
-        } catch (SQLException ex) {
-            throw new DAOException("Error en la query", ex);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    throw new DAOException("Error en la conexion a la base de datos", ex);
-                }
-
-                if (stat != null) {
-                    try {
-                        stat.close();
-                    } catch (SQLException ex) {
-
-                    }
-                }
-            }
-            user.setPassword(null);
-        }
-        return user;
-    }
-*/
-    
-     private CreateUserDTO parseObject(ResultSet rs) throws SQLException {
+    private CreateUserDTO parseObject(ResultSet rs) throws SQLException {
         String nombre = rs.getString("nombre");
         String apellido = rs.getString("apellido");
         String mail = rs.getString("mail");
@@ -176,8 +137,8 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
         return user;
 
     }
-     
-      private CreateUserDTO parseUserLoginObject(ResultSet rs, CreateUserDTO user) throws SQLException {
+
+    private CreateUserDTO parseUserLoginObject(ResultSet rs, CreateUserDTO user) throws SQLException {
         user.setId_usuario(rs.getInt("id_usuario"));
         user.setNombre(rs.getString("nombre"));
         user.setApellido(rs.getString("apellido"));
@@ -188,7 +149,7 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
     }
 
     @Override
-    public CreateUserDTO autenticacionUsuario(CreateUserDTO user)throws DAOException{
+    public CreateUserDTO autenticacionUsuario(CreateUserDTO user) throws DAOException {
         PreparedStatement stat = null;
         ResultSet rs = null;
 
@@ -224,5 +185,5 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
         }
         return user;
     }
-    
+
 }

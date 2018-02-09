@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import conf.Enviroment;
 import javax.inject.Inject;
 import models.CreateUserDTO;
-import models.Usuario;
 import spark.Router;
 import static spark.Spark.before;
 import static spark.Spark.get;
@@ -62,9 +61,9 @@ public class UsuariosRouter implements Router {
                 response = req.body();
                 CreateUserDTO user = jsonParser.fromJson(response, CreateUserDTO.class);
                 res.status(200); //Solicitud correcta
-                
+
                 //Cuando la query no encuentra por usuario o contrase�a devuelve id_usuario = 0
-                if(user.getId_usuario() == 0){
+                if (user.getId_usuario() == 0) {
                     res.status(401);
                     return "No hay resultados";
                 }
@@ -80,11 +79,6 @@ public class UsuariosRouter implements Router {
         }
         );
 
-        
-          
-         
     }
-    
-}
-    
 
+}

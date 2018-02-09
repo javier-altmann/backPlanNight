@@ -2,11 +2,8 @@ package api;
 
 import DAO.MysqlDaoManager;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import conf.Enviroment;
-import java.util.List;
 import models.*;
-
 
 import javax.inject.Inject;
 import spark.Router;
@@ -58,41 +55,40 @@ public class ApiRouter implements Router {
 
         get("/" + apiContext + "/version/", (req, res) -> appVersion);
 
+        get("/usuarios/", (req, res) -> {
+            try {
+                UserDTO usuario = new UserDTO();
+                usuario.setUsuarios(connection.getUsuariosDAO().obtenerTodos());
+                response = jsonParser.toJson(usuario);
+                res.status(200);
+                if (usuario.getUsuarios().isEmpty()) {
+                    res.status(204); // No hay datos que devolver
+                }
 
-          get( "/usuarios/", (req, res) -> {
-          try{
-           UserDTO usuario = new UserDTO();
-           usuario.setUsuarios(connection.getUsuariosDAO().obtenerTodos());
-           response = jsonParser.toJson(usuario) ;
-           res.status(200);
-           if (usuario.getUsuarios().isEmpty()){
-              res.status(204); // No hay datos que devolver
-            }
-
-            }catch(Exception ex){
-                 res.status(500);
-              return ex;
+            } catch (Exception ex) {
+                res.status(500);
+                return ex;
             }
             return response;
-           }
+        }
         );
-          
-           //ENDPOINT TEST
-          post( "/crear-usuarios/", (req, res) -> {
-            try{
+
+        //ENDPOINT TEST
+        post("/crear-usuarios/", (req, res) -> {
+            try {
                 response = req.body();
                 CreateUserDTO user = jsonParser.fromJson(response, CreateUserDTO.class);
-                 res.status(200); //Solicitud correcta
+                res.status(200); //Solicitud correcta
                 apiService.CrearUsuario(user);
-                 res.status(201); //Created
-               return "Se creo el usuario correctamente";
-            }catch(Exception exc){
+                res.status(201); //Created
+                return "Se creo el usuario correctamente";
+            } catch (Exception exc) {
                 res.status(400);
-                 return exc;
-                         
+                return exc;
+
             }
-           
-           }
+
+        }
         );
 
     }

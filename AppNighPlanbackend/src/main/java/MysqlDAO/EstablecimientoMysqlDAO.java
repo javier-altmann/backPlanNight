@@ -12,7 +12,7 @@ import models.Establecimientos;
 
 /**
  *
- * @author JavierAltmann
+ * @JavierAltmann
  */
 public class EstablecimientoMysqlDAO implements EstablecimientosDAO {
 
@@ -67,7 +67,7 @@ private ResultSet rs = null;
        
     }
       return establecimientos;
-    }
+    }   
     
      private Establecimientos parseObject(ResultSet rs) throws SQLException{
         int id_establecimiento = rs.getInt("id_establecimiento");

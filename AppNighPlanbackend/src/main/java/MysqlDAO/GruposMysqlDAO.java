@@ -1,7 +1,6 @@
 package MysqlDAO;
 
 import DAO.DAOException;
-import DAO.EstablecimientosDAO;
 import DAO.GruposDAO;
 import java.sql.Connection;
 import java.util.List;
@@ -11,9 +10,10 @@ import java.util.List;
  * @Javier Altmann
  */
 public class GruposMysqlDAO implements GruposDAO {
-   private Connection conn;
-    
-     public GruposMysqlDAO(Connection conn) {
+
+    private Connection conn;
+
+    public GruposMysqlDAO(Connection conn) {
         this.conn = conn;
     }
 
@@ -46,6 +46,5 @@ public class GruposMysqlDAO implements GruposDAO {
     public Object obtener(int id) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
 }

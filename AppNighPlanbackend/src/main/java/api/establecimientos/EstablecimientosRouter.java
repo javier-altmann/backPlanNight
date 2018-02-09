@@ -1,4 +1,3 @@
-
 package api.establecimientos;
 
 import DAO.MysqlDaoManager;
@@ -11,12 +10,11 @@ import static spark.Spark.before;
 import static spark.Spark.get;
 import static spark.Spark.options;
 
-
 /**
  *
- * @author Javier Altmann
+ * @Javier Altmann
  */
-public class EstablecimientosRouter implements Router{
+public class EstablecimientosRouter implements Router {
 
     private final EstablecimientosService establecimientosService;
     private MysqlDaoManager connection;
@@ -32,6 +30,7 @@ public class EstablecimientosRouter implements Router{
         this.connection = connection;
         this.jsonParser = new Gson();
     }
+
     @Override
     public void routeServices() {
         options("/*",
@@ -56,31 +55,27 @@ public class EstablecimientosRouter implements Router{
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
-         get( "/test/", (req, res) -> {
-         
-          try{
-          EstablecimientosDTO establecimiento = new EstablecimientosDTO();
-      
-         establecimiento.setEstablecimientos(connection.getEstablecimientosDAO().getEstablecimientosDestacados());
+        get("/test/", (req, res) -> {
 
-          response = jsonParser.toJson(establecimiento);
-          res.status(200);
-          if (establecimiento.getEstablecimientos().isEmpty()){
-              res.status(204);
-          }
-         
-          }catch(Exception ex){
-              res.status(500);
-              return ex;
-          }
+            try {
+                EstablecimientosDTO establecimiento = new EstablecimientosDTO();
+
+                establecimiento.setEstablecimientos(connection.getEstablecimientosDAO().getEstablecimientosDestacados());
+
+                response = jsonParser.toJson(establecimiento);
+                res.status(200);
+                if (establecimiento.getEstablecimientos().isEmpty()) {
+                    res.status(204);
+                }
+
+            } catch (Exception ex) {
+                res.status(500);
+                return ex;
+            }
             return response;
-           }
+        }
         );
-         
-        
-          
-         
+
     }
-   
-    
+
 }
