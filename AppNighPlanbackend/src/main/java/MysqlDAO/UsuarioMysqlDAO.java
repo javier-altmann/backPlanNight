@@ -135,6 +135,8 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
     }
 
     private CreateUserDTO parseUserLoginObject(ResultSet rs, CreateUserDTO user) throws SQLException {
+     
+       
         user.setId_usuario(rs.getInt("id_usuario"));
         user.setNombre(rs.getString("nombre"));
         user.setApellido(rs.getString("apellido"));
@@ -156,7 +158,7 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
             rs = stat.executeQuery();
 
             while (rs.next()) {
-
+   
                 parseUserLoginObject(rs, user);
             }
         } catch (SQLException ex) {

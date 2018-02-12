@@ -63,13 +63,15 @@ public class UsuariosRouter implements Router {
                 CreateUserDTO user = jsonParser.fromJson(response, CreateUserDTO.class);
                 res.status(200); //Solicitud correcta
 
+
+                String respuesta = jsonParser.toJson(connection.getUsuariosDAO().autenticacionUsuario(user));
+               
                 //Cuando la query no encuentra por usuario o contrase�a devuelve id_usuario = 0
                 if (user.getId_usuario() == 0) {
                     res.status(401);
                     return "No hay resultados";
                 }
-
-                String respuesta = jsonParser.toJson(connection.getUsuariosDAO().autenticacionUsuario(user));
+                
                 res.status(201);
                 return respuesta;
             } catch (Exception exc) {
