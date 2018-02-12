@@ -55,7 +55,7 @@ public class EstablecimientosRouter implements Router {
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
-        get("/test/", (req, res) -> {
+        get("/establecimientos/destacados", (req, res) -> {
 
             try {
                 EstablecimientosDTO establecimiento = new EstablecimientosDTO();

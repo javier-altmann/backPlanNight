@@ -22,10 +22,6 @@ public class GruposMysqlDAO implements GruposDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void insertar(Object t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void actualizar(Object t) throws DAOException {

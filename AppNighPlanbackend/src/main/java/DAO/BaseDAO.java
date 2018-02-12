@@ -10,8 +10,6 @@ public interface BaseDAO<T> {
 
     void crear(T t) throws DAOException;
 
-    void insertar(T t) throws DAOException;
-
     void actualizar(T t) throws DAOException;
 
     void eliminar(T t) throws DAOException;

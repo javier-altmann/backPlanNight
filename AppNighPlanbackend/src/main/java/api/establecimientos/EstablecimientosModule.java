@@ -1,6 +1,5 @@
 package api.establecimientos;
 
-import api.ApiRouter;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 import spark.Router;

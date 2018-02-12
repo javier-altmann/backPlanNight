@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import conf.Enviroment;
 import javax.inject.Inject;
 import models.CreateUserDTO;
+import models.UserDTO;
 import spark.Router;
 import static spark.Spark.before;
 import static spark.Spark.get;
@@ -78,7 +79,27 @@ public class UsuariosRouter implements Router {
             }
         }
         );
+        
+          get("/usuarios/", (req, res) -> {
+            try {
+                UserDTO usuario = new UserDTO();
+                usuario.setUsuarios(connection.getUsuariosDAO().obtenerTodos());
+                response = jsonParser.toJson(usuario);
+                res.status(200);
+                if (usuario.getUsuarios().isEmpty()) {
+                    res.status(204); // No hay datos que devolver
+                }
+
+            } catch (Exception ex) {
+                res.status(500);
+                return ex;
+            }
+            return response;
+        }
+        );
 
     }
+
+    
 
 }

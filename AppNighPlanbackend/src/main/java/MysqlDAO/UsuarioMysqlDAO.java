@@ -73,11 +73,6 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
     }
 
     @Override
-    public void insertar(CreateUserDTO t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void actualizar(CreateUserDTO t) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -128,12 +123,13 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
     }
 
     private CreateUserDTO parseObject(ResultSet rs) throws SQLException {
+        int id_usuario = rs.getInt("id_usuario");
         String nombre = rs.getString("nombre");
         String apellido = rs.getString("apellido");
         String mail = rs.getString("mail");
         String password = rs.getString("password");
         String imagen_perfil = rs.getString("imagen_perfil");
-        CreateUserDTO user = new CreateUserDTO(nombre, apellido, mail, password, imagen_perfil);
+        CreateUserDTO user = new CreateUserDTO(id_usuario, nombre, apellido, mail, password, imagen_perfil);
         return user;
 
     }

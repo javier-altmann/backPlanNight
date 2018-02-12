@@ -5,16 +5,18 @@ package models;
  * @Javier Altmann
  */
 public class CreateUserDTO {
+    
+    private int id_usuario;
     private String nombre;
     private String apellido ;
     private String mail;
     private String password;
     private String imagen_perfil;
-    private int id_usuario;
     
     public CreateUserDTO(){}
     
-    public CreateUserDTO(String nombre, String apellido, String mail,String password, String imagen_perfil) {
+    public CreateUserDTO(int id_usuario, String nombre, String apellido, String mail,String password, String imagen_perfil) {
+        this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.mail = mail;

@@ -17,7 +17,7 @@ import models.Establecimientos;
 public class EstablecimientoMysqlDAO implements EstablecimientosDAO {
 
 final String GETESTABLECIMIENTOS = "SELECT establecimientos.id_establecimiento ,establecimientos.nombre, establecimientos.imagen, establecimientos.direccion, \n" +
-"barrios.barrio, establecimientos.destacado\n" +
+"barrios.nombre, establecimientos.destacado\n" +
 "FROM establecimientos\n" +
 "INNER JOIN establecimiento_barrios\n" +
 "ON establecimientos.id_establecimiento = establecimiento_barrios.id_establecimiento\n" +
@@ -74,7 +74,7 @@ private ResultSet rs = null;
         String nombre = rs.getString("nombre");
         String imagen = rs.getString("imagen");
         String direccion = rs.getString("direccion");
-        String barrio = rs.getString("barrio");
+        String barrio = rs.getString("nombre");
         boolean destacado = rs.getBoolean("destacado");
      
         Establecimientos establecimiento = new Establecimientos(id_establecimiento,nombre,imagen,direccion,barrio,destacado);
@@ -87,10 +87,6 @@ private ResultSet rs = null;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void insertar(Establecimientos t) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void actualizar(Establecimientos t) throws DAOException {
