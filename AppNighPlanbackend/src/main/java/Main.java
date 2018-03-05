@@ -2,6 +2,7 @@
 import api.ApiModule;
 import api.ApiRouter;
 import api.establecimientos.EstablecimientosModule;
+import api.grupos.GruposModule;
 import api.usuarios.UsuariosModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -27,6 +28,7 @@ public final class Main extends AbstractModule {
                 new ApiModule(),
                 new EstablecimientosModule(),
                 new UsuariosModule(),
+                new GruposModule(),
                 new DatabaseModule());
 
         Spark.port(getHerokuAssignedPort());

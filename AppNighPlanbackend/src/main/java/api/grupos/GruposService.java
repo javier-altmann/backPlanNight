@@ -1,4 +1,4 @@
-package api.establecimientos;
+package api.grupos;
 
 import DAO.MysqlDaoManager;
 import java.sql.SQLException;
@@ -7,11 +7,10 @@ import java.sql.SQLException;
  *
  * @Javier Altmann
  */
-public class EstablecimientosService {
-    
+public class GruposService {
     private MysqlDaoManager connection;
 
-    public EstablecimientosService() throws SQLException {
+    public GruposService() throws SQLException {
         this.connection = new MysqlDaoManager();
     }
     
