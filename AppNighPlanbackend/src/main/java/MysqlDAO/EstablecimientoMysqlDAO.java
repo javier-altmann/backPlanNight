@@ -83,7 +83,7 @@ private ResultSet rs = null;
     }
 
     @Override
-    public void crear(Establecimientos t) throws DAOException {
+    public String crear(Establecimientos t) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

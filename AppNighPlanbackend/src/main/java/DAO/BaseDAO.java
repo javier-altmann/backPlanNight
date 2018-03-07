@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface BaseDAO<T> {
 
-    void crear(T t) throws DAOException;
+    String crear(T t) throws DAOException;
 
     void actualizar(T t) throws DAOException;
 

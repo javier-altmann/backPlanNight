@@ -82,6 +82,14 @@ public class UsuariosRouter implements Router {
         }
         );
         
+        post("/create/", (req, res) -> {
+           
+               response = connection.getUsuariosDAO().crear(jsonParser.fromJson(req.body(), CreateUserDTO.class));
+        
+              return response;
+        }
+        );
+        
           get("/usuarios/", (req, res) -> {
             try {
                 UserDTO usuario = new UserDTO();

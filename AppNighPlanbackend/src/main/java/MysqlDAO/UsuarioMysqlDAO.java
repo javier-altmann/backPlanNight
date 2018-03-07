@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.CreateUserDTO;
 
 /**
@@ -37,6 +39,7 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
             + " password,"
             + " imagen_perfil ) VALUES ("
             + " ?, ?, ?, ?, ?)";
+    final String CREATE_USER = "INSERT INTO usuarios (nombre, apellido,mail,password, imagen_perfil ) VALUES (?,?,?,?,?)";
 
     final String CREAR_ROL_USUARIO = "INSERT INTO usuarios ("
             + " id_rol,"
@@ -44,10 +47,10 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
             + " 2, ?)";
 
     @Override
-    public void crear(CreateUserDTO user) throws DAOException {
+    public String crear(CreateUserDTO user) throws DAOException {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement(CREAR_USUARIO);
+            ps = conn.prepareStatement(CREATE_USER);
 
             ps.setString(1, user.getNombre());
             ps.setString(2, user.getApellido());
@@ -58,8 +61,9 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
             ps.executeUpdate();
             conn.commit();
         } catch (SQLException ex) {
-
-            //       conn.rollback();
+            
+                conn.rollback();
+            
         } finally {
 
             if (ps != null) {
@@ -70,6 +74,7 @@ public class UsuarioMysqlDAO implements UsuarioDAO {
                 }
             }
         }
+        return "test";
     }
 
     @Override

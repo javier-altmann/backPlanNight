@@ -39,7 +39,7 @@ public class GruposMysqlDAO implements GruposDAO {
     }
 
     @Override
-    public void crear(Object t) throws DAOException {
+    public String crear(Object t) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
